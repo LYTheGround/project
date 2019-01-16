@@ -53,7 +53,7 @@ class UsersTableSeeder extends Seeder
             $info->tels()->create(['tel' => $data['tel'], 'default' => 1]);
             // token
             $company = Company::first();
-            $token = $token->onCreate($company->premium, 2,$categori->id);
+            $token = $token->onCreate($company, 2,$categori->id);
             // premium
             $premium = $premium->onCreate($token);
             // member

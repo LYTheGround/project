@@ -13,13 +13,19 @@ Route::middleware('auth')->group(function (){
 
     Route::get('/home', 'HomeController@index')->name('home');
 
-    Route::resource('member','Rh\memberController')->only(['show']);
+    Route::namespace('Rh')->group(function (){
 
+        Route::resource('member','MemberController')->only(['show']);
 
-    Route::get('params', 'Rh\memberController@params')->name('member.params');
-    Route::post('params', 'Rh\MemberController@updateParams')->name('member.update');
-    Route::get('psw', 'Rh\MemberController@psw')->name('member.psw');
-    Route::post('psw', 'Rh\MemberController@updatePsw')->name('member.psw');
+        Route::get('params', 'MemberController@params')->name('member.params');
+        Route::post('params', 'MemberController@updateParams')->name('member.update');
+
+        Route::get('psw', 'MemberController@psw')->name('member.psw');
+        Route::post('psw', 'MemberController@updatePsw')->name('member.psw');
+
+    });
+
+    Route::resource('token','Premium\TokenController')->except(['edit', 'update', 'show']);
 
 
 });

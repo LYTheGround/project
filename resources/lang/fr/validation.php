@@ -180,9 +180,14 @@ return [
         'femme'                 => 'Femme',
         'status'                => "Status",
         'id'                    => "Identifiant",
-        'limit_date'            => "Date limite",
+        'limit_date'            => "Date d'expiration",
         "edit"                  => 'Modifié',
         "update"                => "Mettre à jour",
-        'old_password'          => "Ancien Mot de passe"
+        'old_password'          => "Mot de passe actuel",
+        'soldLeft'              => 'Solde restant',
+        'category'              => "Catégorie",
+        'range'                 => "Gamme",
+        'action'                => "Action",
+        'days'                  => "Jours"
     ],
 ];

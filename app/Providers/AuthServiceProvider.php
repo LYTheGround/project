@@ -17,12 +17,14 @@ use App\Policies\Money\EcheancePolicy;
 use App\Policies\Rh\MemberPolicy;
 use App\Policies\Rh\PositionPolicy;
 use App\Policies\Store\ProductPolicy;
+use App\Policies\TokenPolicy;
 use App\Policies\Trade\BuyPolicy;
 use App\Policies\Trade\SalePolicy;
 use App\Position;
 use App\Product;
 use App\Provider;
 use App\Sale;
+use App\Token;
 use App\Unload;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -34,17 +36,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        Position::class => PositionPolicy::class,
-        Member::class => MemberPolicy::class,
-        Product::class => ProductPolicy::class,
-        Provider::class => ProviderPolicy::class,
-        Client::class => ClientPolicy::class,
-        Buy::class => BuyPolicy::class,
-        Sale::class => SalePolicy::class,
-        Accounting::class => AccountingPolicy::class,
-        Unload::class => UnloadPolicy::class,
-        Admin::class => AdminPolicy::class,
-        Echeance::class => EcheancePolicy::class,
+        Token::class => TokenPolicy::class,
     ];
 
     /**

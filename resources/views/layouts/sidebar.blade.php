@@ -16,7 +16,9 @@
                     </ul>
                 </li>
                 <li class="menu-title">Company</li>
-
+                <li class="{{ (request()->is('token') || request()->is('token/*')) ? 'active' : '' }}">
+                    <a href="{{ route('token.index') }}">{{ __('token.tokens') }}</a>
+                </li>
             </ul>
         </div>
     </div>

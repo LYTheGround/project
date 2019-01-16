@@ -52,12 +52,12 @@
     @include('layouts.sidebar')
     <div class="page-wrapper">
         @if (session('status'))
-            <div class="alert alert-success m-t-10" role="alert">
+            <div class="alert alert-success col-xs-10 col-xs-offset-1 m-t-10" role="alert">
                 {{ session('status') }}
             </div>
         @endif
         @if (session('danger'))
-            <div class="alert alert-danger m-t-10" role="alert">
+            <div class="alert alert-danger col-xs-10 col-xs-offset-1 m-t-10" role="alert">
                 {{ session('danger') }}
             </div>
         @endif
