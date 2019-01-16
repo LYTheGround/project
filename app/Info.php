@@ -22,8 +22,12 @@ class Info extends Model
      *
      * @var array
      */
-    protected $fillable = ['face', 'last_name', 'first_name', 'sex', 'birth', 'address', 'address', 'cin', 'city_id'];
+    protected $fillable = ['face', 'last_name', 'first_name', 'sex', 'birth', 'address', 'cin', 'city_id'];
 
+    public function getFullNameAttribute()
+    {
+        return strtoupper($this->last_name) . ' ' . ucfirst($this->first_name);
+    }
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
@@ -62,5 +66,24 @@ class Info extends Model
     public function position()
     {
         return $this->hasOne(Position::class);
+    }
+
+    /**
+     * @param string $face
+     * @param array $data
+     * @return Info
+     */
+    public function onCreate(string $face,array $data)
+    {
+        return $this->create([
+            'face' => $face,
+            'last_name' => $data['last_name'],
+            'first_name' => $data['first_name'],
+            'sex' => $data['sex'],
+            'birth' => $data['birth'],
+            'address' => $data['address'],
+            'cin' => $data['cin'],
+            'city_id' => $data['city']
+        ]);
     }
 }

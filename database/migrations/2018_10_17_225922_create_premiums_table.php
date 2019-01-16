@@ -16,7 +16,7 @@ class CreatePremiumsTable extends Migration
         Schema::create('premiums', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->integer('sold')->default(0)->unsigned();
+            $table->integer('sold')->default(0);
             $table->integer('range')->default(0)->unsigned();
             $table->date('limit')->nullable();
             $table->date('update_status')->nullable();

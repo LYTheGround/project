@@ -1,8 +1,8 @@
 $(function(){
-    $('input[type="file"]').each(function(){
+    $('.input-file').each(function(){
         // Refs
         var $file = $(this),
-            $label = $file.next('label'),
+            $label = $file.parent().prev('img'),
             $labelText = $label.find('span'),
             labelDefault = $labelText.text();
 
@@ -13,12 +13,8 @@ $(function(){
             //Check successfully selection
             if( fileName ){
                 $label
-                    .addClass('file-ok')
-                    .css('background-image', 'url(' + tmppath + ')');
+                    .attr('src', tmppath);
                 $labelText.text(fileName);
-            }else{
-                $label.removeClass('file-ok');
-                $labelText.text(labelDefault);
             }
         });
 

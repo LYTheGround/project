@@ -4,6 +4,7 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 
 /**
@@ -24,7 +25,7 @@ class Info_box extends Model
     /**
      * @var array
      */
-    protected $fillable = ['brand', 'name', 'slug', 'licence', 'ice', 'turnover', 'taxes', 'fax', 'speaker', 'address', 'build', 'floor', 'apt_nbr', 'zip', 'city_id'];
+    protected $fillable = ['brand', 'name', 'licence', 'ice', 'turnover', 'taxes', 'fax', 'speaker', 'address', 'build', 'floor', 'apt_nbr', 'zip', 'city_id'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
@@ -72,5 +73,14 @@ class Info_box extends Model
     public function client()
     {
         return $this->hasOne(Client::class);
+    }
+
+    /**
+     * @param Request $request
+     * @return Info_box
+     */
+    public function onCreate(Request $request)
+    {
+        return $this->create($request->request->all());
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Notifications\ResetPasswordNotification;
+use App\Notifications\Auth\ResetPasswordNotification;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -98,12 +98,40 @@ class User extends Authenticatable
         $this->notify(new ResetPasswordNotification($token));
     }
 
-    // cadre Team
-    // Team
-    public function team()
+    /**
+     * @param array $data
+     * @return User
+     */
+    public function onCreate(array $data)
     {
-
+        return $this->create([
+            "login"     => $data['name'],
+            "email"     => $data['email'],
+            "password"  => bcrypt($data['password']),
+        ]);
     }
-    // Employed Team
+
+    public function onCreateUser($data,Info $info,Premium $premium,Member $member)
+    {
+        $face = null;
+
+        if(!is_null($data['face'])) $face = $data['face']->store('users');
+
+        $user = $this->onCreate($data);
+
+        $info = $info->onCreate($face, $data);
+
+        $info->emails()->create(['email' => $data['email'], 'default' => 1]);
+
+        $info->tels()->create(['tel' => $data['phone'], 'default' => 1]);
+
+        $token = Token::where('token', $data['token'])->first();
+
+        $premium = $premium->onCreate($token);
+
+        $member->onCreate($user, $info, $premium, $token->company_id, $data);
+
+        return $user;
+    }
 
 }

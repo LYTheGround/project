@@ -38,6 +38,7 @@
 <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/translate.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/tmpl.js') }}"></script>
 </body>
 
 

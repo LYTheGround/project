@@ -136,4 +136,24 @@ class Member extends Model
             ->latest()
             ->get();
     }
+
+    /**
+     * @param User $user
+     * @param Info $info
+     * @param Premium $premium
+     * @param int $company_id
+     * @param array $data
+     */
+    public function onCreate(User $user, Info $info, Premium $premium, int $company_id, array $data)
+    {
+        $user = $user->member()->create([
+            'name'  => $data['name'],
+            'info_id' => $info->id,
+            'premium_id' => $premium->id,
+            'company_id' => $company_id
+        ]);
+        $user->update([
+            'slug'  => str_slug($user->name . ' ' . $user->id)
+        ]);
+    }
 }

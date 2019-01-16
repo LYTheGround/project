@@ -5,6 +5,7 @@ namespace App;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Http\Request;
 
 /**
  * Class Company
@@ -160,8 +161,31 @@ class Company extends Model
     public function activate()
     {
         $premium = $this->premium;
-        $date = (int)$premium->range;
+        $date = $premium->range;
         $premium->update(['range' => 0, 'limit' => gmdate("Y-m-d", strtotime("+$date days")), 'status_id' => Status::where('status', 'active')->first()->id]);
+    }
+
+    /**
+     * @param User $user
+     * @param Premium $premium
+     * @param Info_box $info_box
+     * @param string $slug
+     * @return Model
+     * @internal param int $owner_id
+     */
+    public function onCreate(User $user, Premium $premium, Info_box $info_box,string $slug)
+    {
+        $company =  $premium->company()->create([
+            'slug'      => $slug,
+            'user_id'   => $user->id,
+            'info_box_id'   => $info_box->id
+        ]);
+        $company->tokens()->create([
+            'range' => 5,
+            'token' => md5(sha1(rand())),
+            'category_id' => 2
+        ]);
+        return $company;
     }
 
 

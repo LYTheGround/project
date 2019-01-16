@@ -2,8 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Info;
+use App\Member;
+use App\Premium;
+use App\Rules\PasswordRule;
+use App\Rules\PhoneRule;
+use App\Rules\SexRule;
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -49,10 +56,20 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:6', 'confirmed'],
-        ]);
+                'face'          => 'nullable|mimes:jpg,png,jpeg,gif',
+                'name'          => 'bail|required|string|min:3|max:20|unique:users,login',
+                'token'         => 'bail|required|exists:tokens,token',
+                'email'         => 'bail|required|string|email|unique:users,email',
+                'phone'         => ['bail','required','min:10','max:10', new PhoneRule()],
+                'password'      => ['bail', 'required', 'min:6', 'max:16', 'confirmed', new PasswordRule()],
+                'last_name'     => ['bail', 'required', 'string', 'min:3', 'max:255'],
+                'first_name'    => ['bail', 'required', 'string', 'min:3', 'max:255'],
+                'sex'           => ['bail', 'required', 'string', 'min:5', 'max:5', new SexRule()],
+                'birth'         => ['bail', 'required', 'date', 'before:' . date('d-m-Y',strtotime("-18 years"))],
+                'address'       => 'bail|required|min:10,max:255',
+                'city'          => 'bail|required|int|exists:cities,id',
+                'cin'           => 'nullable|string|min:6'
+            ]);
     }
 
     /**
@@ -63,10 +80,19 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        $user = new User();
+        return $user->onCreateUser($data,new Info(),new Premium(), new Member());
+    }
+
+    /**
+     * The user has been registered.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function registered(Request $request, $user)
+    {
+        return redirect()->route('member.show',['member' => $user->member]);
     }
 }

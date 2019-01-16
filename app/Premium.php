@@ -224,4 +224,42 @@ class Premium extends Model
         return $diff / (60 * 60 * 24);
     }
 
+    /**
+     * @return Premium
+     */
+    public function onCreateCompany()
+    {
+        return $this->create([
+            'sold'              => 10,
+            'range'             => 5,
+            'limit'             => null,
+            'category_id'       => 1,
+            'update_status'     => Carbon::now(),
+            'status_id'         => 1
+        ]);
+    }
+
+    /**
+     * @param Token $token
+     * @return Premium
+     */
+    public function onCreate(Token $token)
+    {
+
+        if ($token->category_id === 2)  $token->company->activate();
+
+        $premium = $this->create([
+            'sold'              => 0,
+            'range'             => 0,
+            'limit'             => date('Y-m-d',strtotime("+$token->range days")),
+            'category_id'       => $token->category_id,
+            'update_status'     => Carbon::now(),
+            'status_id'         => 2
+        ]);
+
+        $token->delete();
+
+        return $premium;
+    }
+
 }

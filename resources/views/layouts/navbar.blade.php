@@ -37,7 +37,7 @@
         </form>
         @auth
             <li class="dropdown">
-                <a href="#" id="notifications_panel" data-t="{{ route('notification.read') }}" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell-o"></i>
+                <a href="#" id="notifications_panel" data-t="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell-o"></i>
                     @if(isset($count_notifications))
                         <span class="badge bg-primary pull-right" id="badge_notif">{{ $count_notifications }}</span>
                     @endif
@@ -81,7 +81,7 @@
                         </ul>
                     </div>
                     <div class="topnav-dropdown-footer">
-                        <a href="{{ route('notification.index') }}">View all Notifications</a>
+                        <a href="#">View all Notifications</a>
                     </div>
                 </div>
             </li>
@@ -100,19 +100,24 @@
                     <li class="text-left">
                         <a href="{{ route('member.show',['member' => auth()->user()->member]) }}"
                            class="user-link">
-                            <i class="fa fa-user-plus"></i>  <span>{{ __('pages.rh.user.profile') }}</span>
+                            <i class="fa fa-user-plus"></i>  <span>{{ __('rh/member.profile') }}</span>
                         </a>
                     </li>
                     <li class="text-left">
                         <a href="{{ route('member.params') }}">
-                           <i class="fa fa-database"></i> <span>{{ __('pages.rh.user.params') }}</span>
+                           <i class="fa fa-database"></i> <span>{{ __('rh/member.params') }}</span>
+                        </a>
+                    </li>
+                    <li class="text-left">
+                        <a href="{{ route('member.psw') }}">
+                           <i class="fa fa-database"></i> <span>{{ __('validation.attributes.password') }}</span>
                         </a>
                     </li>
                     <li class="text-left">
                         <a href="{{ route('logout') }}"
                            onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                           <i class="fa fa-power-off"></i> <span>{{ __('pages.auth.logout') }}</span>
+                           <i class="fa fa-power-off"></i> <span>{{ __('auth/login.logout') }}</span>
                         </a>
 
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -122,8 +127,8 @@
                 </ul>
             </li>
             @else
-                <li><a href="{{ route('login') }}">{{ __('pages.auth.login.login') }}</a></li>
-                <li><a href="{{ route('register') }}">{{ __('pages.auth.register.register') }}</a></li>
+                <li><a href="{{ route('login') }}">{{ __('auth/login.login') }}</a></li>
+                <li><a href="{{ route('register') }}">{{ __('auth/register.register') }}</a></li>
                 @endauth
     </ul>
     <div class="dropdown mobile-user-menu pull-right">
@@ -133,12 +138,13 @@
             @auth
                 <li class="text-left">
                     <a href="{{ route('member.show',['member' => auth()->user()->member]) }}" class="user-link">
-                        <i class="fa fa-user-plus"></i> <span>{{ __('pages.rh.user.profile') }}</span>
+                        <i class="fa fa-user-plus"></i> <span>{{ __('rh/member.profile') }}</span>
                     </a>
                 </li>
-                <li class="text-left"><a href="#"><i class="fa fa-database"></i> {{ __('pages.rh.user.params') }}</a></li>
+                <li class="text-left"><a href="{{ route('member.params') }}"><i class="fa fa-database"></i> {{ __('rh/member.params') }}</a></li>
+                <li class="text-left"><a href="{{ route('member.psw') }}"><i class="fa fa-database"></i> {{ __('validation.attributes.password') }}</a></li>
                 <li class="text-left">
-                    <a href="{{ route('notification.index') }}">
+                    <a href="#">
                         <span class=""><i class="fa fa-bell"></i> {{ __('Notifications') }}</span>
 
                         @if(isset($count_notifications))
@@ -147,15 +153,15 @@
                 </li>
                 <li class="text-left">
                     <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                        <i class="fa fa-power-off"></i> <span>{{ __('pages.auth.logout') }}</span>
+                        <i class="fa fa-power-off"></i> <span>{{ __('auth/login.logout') }}</span>
                     </a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         @csrf
                     </form>
                 </li>
                 @else
-                    <li><a href="{{ route('login') }}">{{ __('pages.auth.login.login') }}</a></li>
-                    <li><a href="{{ route('register') }}">{{ __('pages.auth.register.register') }}</a></li>
+                    <li><a href="{{ route('login') }}">{{ __('auth/login.login') }}</a></li>
+                    <li><a href="{{ route('register') }}">{{ __('auth/register.register') }}</a></li>
                     @endauth
         </ul>
     </div>
