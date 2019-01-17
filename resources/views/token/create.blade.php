@@ -30,11 +30,11 @@
                                 <div class="col-md-6">
                                     {{ Form::label('category',__('validation.attributes.category'),['class' => 'label-control']) }}
                                     <select name="category" id="category" title="category" class="form-control" required>
-                                        <option value="3" {{ (old('category') == '3') ? 'selected' : '' }}>manager</option>
-                                        <option value="4" {{ (old('category') == '4') ? 'selected' : '' }}>accounting</option>
-                                        <option value="5" {{ (old('category') == '5') ? 'selected' : '' }}>commercial</option>
-                                        <option value="6" {{ (old('category') == '6') ? 'selected' : '' }}>delivery</option>
-                                        <option value="7" {{ (old('category') == '7') ? 'selected' : '' }}>storekeeper</option>
+                                        <option value="3" {{ (old('category') == '3') ? 'selected' : '' }}>{{ __('category.manager') }}</option>
+                                        <option value="4" {{ (old('category') == '4') ? 'selected' : '' }}>{{ __('category.accounting') }}</option>
+                                        <option value="5" {{ (old('category') == '5') ? 'selected' : '' }}>{{ __('category.commercial') }}</option>
+                                        <option value="6" {{ (old('category') == '6') ? 'selected' : '' }}>{{ __('category.delivery') }}</option>
+                                        <option value="7" {{ (old('category') == '7') ? 'selected' : '' }}>{{ __('category.storekeeper') }}</option>
                                     </select>
                                     @if($errors->has('category'))
                                         <span class="text-danger">{{ $errors->first('category') }}</span>

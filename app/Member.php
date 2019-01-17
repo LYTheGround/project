@@ -156,4 +156,12 @@ class Member extends Model
             'slug'  => str_slug($user->name . ' ' . $user->id)
         ]);
     }
+
+    public function colleagues()
+    {
+        return $this->company->members()->with([
+            'info.city', 'info.emails', 'info.tels',
+            'premium.category','premium.status'
+        ])->get();
+    }
 }

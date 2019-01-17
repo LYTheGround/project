@@ -3,10 +3,12 @@
 namespace App;
 
 use App\Notifications\Auth\ResetPasswordNotification;
+use App\Notifications\Rh\CreateUserNotification;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 
 /**
  * Class User
@@ -115,7 +117,7 @@ class User extends Authenticatable
     {
         $face = null;
 
-        if(!is_null($data['face'])) $face = $data['face']->store('users');
+        if(isset($data['face'])) $face = $data['face']->store('users');
 
         $user = $this->onCreate($data);
 
@@ -130,8 +132,15 @@ class User extends Authenticatable
         $premium = $premium->onCreate($token);
 
         $member->onCreate($user, $info, $premium, $token->company_id, $data);
-
         return $user;
     }
 
+    public function colleagues()
+    {
+        return $this->member->company->members->reject(function ($member) {
+            return $member->user->id === $this->id;
+        })->map(function ($member) {
+            return $member->user;
+        });
+    }
 }

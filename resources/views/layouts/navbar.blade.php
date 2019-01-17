@@ -37,20 +37,20 @@
         </form>
         @auth
             <li class="dropdown">
-                <a href="#" id="notifications_panel" data-t="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell-o"></i>
+                <a href="#" id="notifications_panel" data-t="{{ route('notification.read') }}" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell-o"></i>
                     @if(isset($count_notifications))
                         <span class="badge bg-primary pull-right" id="badge_notif">{{ $count_notifications }}</span>
                     @endif
                 </a>
                 <div class="dropdown-menu notifications">
                     <div class="topnav-dropdown-header">
-                        <span>Notifications</span>
+                        <span>{{ __('notification.unread') }}</span>
                     </div>
                     <div class="drop-scroll">
                         <ul class="media-list">
                             @foreach(auth()->user()->unreadNotifications  as $notification)
                                 <li class="media notification-message">
-                                    <a href="#">
+                                    <a href="{{ $notification->data['route'] }}">
                                         <div class="media-left">
                                             <span class="avatar">
                                                 @if(isset($notification->data['img']))
@@ -66,12 +66,12 @@
                                         <div class="media-body">
                                             <p class="noti-details text-warning">
                                                 <span class="noti-title">{{ $notification->data['name'] }}</span>
-                                                <span class="">{{ $notification->data['task'] }}</span>
-                                                <span class="noti-title">{{ $notification->data['msg'] }}</span>
+                                                <span class="">{{ __($notification->data['request']) }}</span>
+                                                <span class="noti-title">{{ __($notification->data['action']) }}</span>
                                             </p>
                                             <p class="noti-time">
                                                 <span class="notification-time">
-                                                    Le :{{ \Carbon\Carbon::parse($notification->created_at)->format('d/m/y à H:i:s') }}
+                                                     {{ __('diver.le') . ' : ' . \Carbon\Carbon::parse($notification->created_at)->format('d/m/y' . __("diver.a") .' H:i:s') }}
                                                 </span>
                                             </p>
                                         </div>
@@ -81,7 +81,7 @@
                         </ul>
                     </div>
                     <div class="topnav-dropdown-footer">
-                        <a href="#">View all Notifications</a>
+                        <a href="{{ route('notification.index') }}">{{ __('notification.view_all') }}</a>
                     </div>
                 </div>
             </li>

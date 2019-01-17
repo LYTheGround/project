@@ -3,25 +3,41 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+
+Auth::routes();
+
+// Change Language
+Route::post('language/', array('before' => 'csrf', 'as' => 'language-chooser', 'uses' => 'LanguageController@changeLanguage'));
+
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
-
 Route::middleware('auth')->group(function (){
+
+    Route::get('notifications','notificationController@index')->name('notification.index');
+    Route::post('notifications','notificationController@read')->name('notification.read');
+    Route::delete('notifications','notificationController@destroy')->name('notification.destroy');
+
 
     Route::get('/home', 'HomeController@index')->name('home');
 
     Route::namespace('Rh')->group(function (){
 
-        Route::resource('member','MemberController')->only(['show']);
+        Route::resource('member','MemberController')->only(['show', 'index']);
 
         Route::get('params', 'MemberController@params')->name('member.params');
         Route::post('params', 'MemberController@updateParams')->name('member.update');
 
         Route::get('psw', 'MemberController@psw')->name('member.psw');
         Route::post('psw', 'MemberController@updatePsw')->name('member.psw');
+
+        Route::get('{member}/member/range','MemberController@range')->name('member.range');
+        Route::put('{member}/member/range', 'MemberController@updateRange')->name('member.range.update');
+
+        Route::get('{member}/member/status', 'MemberController@status')->name('member.status');
+        Route::put('{member}/member/status', 'MemberController@updateStatus')->name('member.status.update');
 
     });
 

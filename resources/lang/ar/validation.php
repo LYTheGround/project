@@ -188,6 +188,8 @@ return [
         'category'              => "الفئة",
         'range'                 => "مجال",
         'action'                => "عمل",
-        'days'                  => "أيام"
+        'days'                  => "أيام",
+        'sold'                  => 'رصيد',
+        'limit_days_account'    => "هذا الحساب سوف تنتهي صلاحيته في :value أيام"
     ],
 ];

@@ -19,6 +19,10 @@
                 <li class="{{ (request()->is('token') || request()->is('token/*')) ? 'active' : '' }}">
                     <a href="{{ route('token.index') }}">{{ __('token.tokens') }}</a>
                 </li>
+                <li class="menu-title">RH</li>
+                <li class="{{ (request()->is('member') || request()->is('member/*')) ? 'active' : '' }}">
+                    <a href="{{ route('member.index') }}">{{ __('rh/member.members') }}</a>
+                </li>
             </ul>
         </div>
     </div>

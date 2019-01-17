@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Info;
 use App\Member;
+use App\Notifications\Rh\CreateUserNotification;
 use App\Premium;
 use App\Rules\PasswordRule;
 use App\Rules\PhoneRule;
@@ -12,6 +13,7 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -93,6 +95,8 @@ class RegisterController extends Controller
      */
     protected function registered(Request $request, $user)
     {
+
+        Notification::send($user->colleagues(), new CreateUserNotification($user));
         return redirect()->route('member.show',['member' => $user->member]);
     }
 }

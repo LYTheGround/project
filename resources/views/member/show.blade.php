@@ -4,6 +4,26 @@
 @stop
 @section('content')
     <div class="content container-fluid">
+        <div class="row">
+            <div class="col-xs-12 text-right m-b-30">
+                @can('range',$member)
+                    <a href="{{ route('member.range',compact('member')) }}" class="btn btn-primary"><i
+                                class="fa fa-plus"></i> {{ __('rh/member.range_title') }}</a>
+
+                @endcan
+                @if($member->premium->category->category != 'pdg' && $member->premium->update_status < gmdate('Y-m-d'))
+                    <a href="{{ route('member.status',compact('member')) }}" class="btn btn-success"><i
+                                class="fa fa-edit"></i> {{ __('validation.attributes.status') }}</a>
+                @endif
+                @cannot('range',$member)
+                    @if($member->premium->update_status >= gmdate('Y-m-d'))
+                        <div>
+                            <span> {!!  __('rh/member.status_bloque',['value' =>  '<span class="label label-danger-border">' . Carbon\Carbon::parse($member->premium->update_status)->format('d-m-Y') . '</span>' ]) !!}</span>
+                        </div>
+                    @endif
+                @endcannot
+            </div>
+        </div>
         <div class="card-box">
             <div class="row">
                 <div class="col-md-12">
@@ -24,7 +44,8 @@
                                         <h3 class="user-name m-t-0 m-b-0">{{ $member->info->full_name }}</h3>
                                         <small
                                                 class="text-muted">{{ ucfirst($member->premium->category->category) }}</small>
-                                        <div class="staff-id">{{ __('validation.attributes.id') }} : {{ $member->slug }}</div>
+                                        <div class="staff-id">{{ __('validation.attributes.id') }}
+                                            : {{ $member->slug }}</div>
                                         <div class="staff-id">{{ ucfirst(__('validation.attributes.status')) }} :
                                             @if($member->premium->status->status === 'inactive')
                                                 <span class="label label-warning-border">{{ ucfirst(__($member->premium->status->status)) }}</span>

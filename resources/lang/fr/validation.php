@@ -188,6 +188,8 @@ return [
         'category'              => "Catégorie",
         'range'                 => "Gamme",
         'action'                => "Action",
-        'days'                  => "Jours"
+        'days'                  => "Jours",
+        'sold'                  => 'Solde',
+        'limit_days_account'    => "Ce Compte sera expiré dans :value Jours"
     ],
 ];

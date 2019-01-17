@@ -73,7 +73,7 @@ class Info extends Model
      * @param array $data
      * @return Info
      */
-    public function onCreate(string $face,array $data)
+    public function onCreate(?string $face,array $data)
     {
         return $this->create([
             'face' => $face,

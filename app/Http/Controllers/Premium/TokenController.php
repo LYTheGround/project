@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Premium;
 
 use App\Http\Requests\TokenRequest;
 use App\Token;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;

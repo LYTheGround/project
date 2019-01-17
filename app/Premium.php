@@ -246,7 +246,11 @@ class Premium extends Model
     public function onCreate(Token $token)
     {
 
-        if ($token->category_id === 2)  $token->company->activate();
+        if ($token->category_id === 2)  {$token->company->activate();}
+        else{
+            $company_premium = $token->company->premium;
+            $company_premium->update(['sold' => $company_premium->sold]);
+        }
 
         $premium = $this->create([
             'sold'              => 0,
