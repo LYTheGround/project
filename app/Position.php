@@ -46,4 +46,13 @@ class Position extends Model
     {
         return $this->belongsTo(Info::class);
     }
+
+    public function colleagues()
+    {
+        return $this->company->members->reject(function($member){
+            return $member->user->id === auth()->id();
+        })->map(function ($member){
+            return $member->user;
+        });
+    }
 }

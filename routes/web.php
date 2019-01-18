@@ -23,26 +23,30 @@ Route::middleware('auth')->group(function (){
 
     Route::get('/home', 'HomeController@index')->name('home');
 
-    Route::namespace('Rh')->group(function (){
+    Route::middleware(['premium'])->group(function (){
 
-        Route::resource('member','MemberController')->only(['show', 'index']);
+        Route::namespace('Rh')->group(function (){
 
-        Route::get('params', 'MemberController@params')->name('member.params');
-        Route::post('params', 'MemberController@updateParams')->name('member.update');
+            Route::resource('member','MemberController')->only(['show', 'index']);
 
-        Route::get('psw', 'MemberController@psw')->name('member.psw');
-        Route::post('psw', 'MemberController@updatePsw')->name('member.psw');
+            Route::get('params', 'MemberController@params')->name('member.params');
+            Route::post('params', 'MemberController@updateParams')->name('member.update');
 
-        Route::get('{member}/member/range','MemberController@range')->name('member.range');
-        Route::put('{member}/member/range', 'MemberController@updateRange')->name('member.range.update');
+            Route::get('psw', 'MemberController@psw')->name('member.psw');
+            Route::post('psw', 'MemberController@updatePsw')->name('member.psw');
 
-        Route::get('{member}/member/status', 'MemberController@status')->name('member.status');
-        Route::put('{member}/member/status', 'MemberController@updateStatus')->name('member.status.update');
+            Route::get('{member}/member/range','MemberController@range')->name('member.range');
+            Route::put('{member}/member/range', 'MemberController@updateRange')->name('member.range.update');
+
+            Route::get('{member}/member/status', 'MemberController@status')->name('member.status');
+            Route::put('{member}/member/status', 'MemberController@updateStatus')->name('member.status.update');
+
+            Route::resource('position', 'PositionController');
+        });
+
+        Route::resource('token','Premium\TokenController')->except(['edit', 'update', 'show']);
 
     });
-
-    Route::resource('token','Premium\TokenController')->except(['edit', 'update', 'show']);
-
 
 });
 

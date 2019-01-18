@@ -11,9 +11,9 @@
                     <h3 class="card-title">{{ __('auth/register.account') }}</h3>
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="profile-img-wrap">
+
                                 @include('form.img',['name' => 'face', 'img' => $member->info->face])
-                            </div>
+
                             <div class="profile-basic">
                                 <div class="row">
                                     <div class="col-xs-12">

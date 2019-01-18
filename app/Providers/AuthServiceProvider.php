@@ -4,7 +4,9 @@ namespace App\Providers;
 
 use App\Member;
 use App\Policies\MemberPolicy;
+use App\Policies\PositionPolicy;
 use App\Policies\TokenPolicy;
+use App\Position;
 use App\Token;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -18,6 +20,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         Token::class => TokenPolicy::class,
         Member::class => MemberPolicy::class,
+        Position::class => PositionPolicy::class,
     ];
 
     /**

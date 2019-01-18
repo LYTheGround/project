@@ -23,6 +23,9 @@
                 <li class="{{ (request()->is('member') || request()->is('member/*')) ? 'active' : '' }}">
                     <a href="{{ route('member.index') }}">{{ __('rh/member.members') }}</a>
                 </li>
+                <li class="{{ (request()->is('position') || request()->is('position/*')) ? 'active' : '' }}">
+                    <a href="{{ route('position.index') }}">{{ __('rh/position.positions') }}</a>
+                </li>
             </ul>
         </div>
     </div>
