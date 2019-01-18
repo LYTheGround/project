@@ -192,5 +192,6 @@ return [
         'sold'                  => 'Solde',
         'limit_days_account'    => "Ce Compte sera expiré dans :value Jours",
         'position'              => "Poste",
+        'speaker'               => "Répondeur"
     ],
 ];

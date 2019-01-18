@@ -192,5 +192,6 @@ return [
         'sold'                  => 'رصيد',
         'limit_days_account'    => "هذا الحساب سوف تنتهي صلاحيته في :value أيام",
         'position'              => "الوظيفة",
+        'speaker'               => "اسم المجيب"
     ],
 ];

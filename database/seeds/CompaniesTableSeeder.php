@@ -1,5 +1,6 @@
 <?php
 
+use App\Admin;
 use App\Company;
 use App\Info_box;
 use App\Premium;
@@ -44,6 +45,6 @@ class CompaniesTableSeeder extends Seeder
         $info_box->emails()->create(['email' => "company@ly.ly", "default" => 1]);
         $info_box->tels()->create(['tel' => "0522447788", "default" => 1]);
 
-        $company->onCreate(User::find(1),$premium,$info_box,"company-sarl-1");
+        $company->onCreate(Admin::find(1),$premium,$info_box,"company-sarl-1");
     }
 }

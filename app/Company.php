@@ -26,14 +26,14 @@ use Illuminate\Http\Request;
  * @property Sale $sales
  * @property Echeance $echeances
  * @property Amount_product $amount_products
- * @property User $user
+ * @property Admin $admin
  */
 class Company extends Model
 {
     /**
      * @var array
      */
-    protected $fillable = ['slug', 'info_box_id', 'premium_id', 'user_id'];
+    protected $fillable = ['slug', 'info_box_id', 'premium_id', 'admin_id'];
 
     /**
      * @return string
@@ -150,9 +150,9 @@ class Company extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function admin()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Admin::class);
     }
 
     /**
@@ -166,18 +166,17 @@ class Company extends Model
     }
 
     /**
-     * @param User $user
+     * @param Admin $admin
      * @param Premium $premium
      * @param Info_box $info_box
      * @param string $slug
      * @return Model
-     * @internal param int $owner_id
      */
-    public function onCreate(User $user, Premium $premium, Info_box $info_box,string $slug)
+    public function onCreate(Admin $admin, Premium $premium, Info_box $info_box,string $slug)
     {
         $company =  $premium->company()->create([
             'slug'      => $slug,
-            'user_id'   => $user->id,
+            'admin_id'   => $admin->id,
             'info_box_id'   => $info_box->id
         ]);
         $company->tokens()->create([

@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Hash;
  * @property string $type
  * @property User $user
  * @property City $city
+ * @property Company $companies
  */
 class Admin extends Model
 {
@@ -44,6 +45,10 @@ class Admin extends Model
         return $this->belongsTo(City::class);
     }
 
+    public function companies()
+    {
+        return $this->hasMany(Company::class);
+    }
     /**
      * liste de tous les administrateurs.
      *
@@ -86,5 +91,14 @@ class Admin extends Model
         }
         auth()->user()->save();
         auth()->user()->admin->update(['city_id' => $request->city, 'tel' => $request->tel]);
+        return auth()->user()->admin;
     }
+
+    public function ownerSwitch(int $owner_id)
+    {
+        foreach ($this->companies as $company) {
+            $company->update(['admin_id' => $owner_id]);
+        }
+    }
+
 }

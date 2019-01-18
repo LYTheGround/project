@@ -107,7 +107,7 @@
                             <span>{{ auth()->user()->login }}</span>
                         </a>
                     </li>
-                    <li class="text-center"><a href="{{ route('admin.params') }}">params</a></li>
+                    <li class="text-center"><a href="{{ route('admin.params') }}">{{ __('rh/member.params') }}</a></li>
                     <li class="text-center">
                         <a href="{{ route('logout') }}"
                            onclick="event.preventDefault();
@@ -142,7 +142,7 @@
                         <span>{{ auth()->user()->login }}</span>
                     </a>
                 </li>
-                <li class="text-left"><a href="{{ route('admin.params') }}">params</a></li>
+                <li class="text-left"><a href="{{ route('admin.params') }}">{{ __('rh/member.params') }}</a></li>
                 <li class="text-left">
                     <a href="{{ route('notification.index') }}">
                             <span class="">{{ __('Notifications') }}</span>

@@ -20,31 +20,46 @@ Route::middleware('auth')->group(function (){
     Route::post('notifications','notificationController@read')->name('notification.read');
     Route::delete('notifications','notificationController@destroy')->name('notification.destroy');
 
+    Route::middleware('member')->group(function (){
 
-    Route::get('/home', 'HomeController@index')->name('home');
+        Route::get('/home', 'HomeController@index')->name('home');
 
-    Route::middleware(['premium'])->group(function (){
+        Route::middleware(['premium'])->group(function (){
 
-        Route::namespace('Rh')->group(function (){
+            Route::namespace('Rh')->group(function (){
 
-            Route::resource('member','MemberController')->only(['show', 'index']);
+                Route::resource('member','MemberController')->only(['show', 'index']);
 
-            Route::get('params', 'MemberController@params')->name('member.params');
-            Route::post('params', 'MemberController@updateParams')->name('member.update');
+                Route::get('params', 'MemberController@params')->name('member.params');
+                Route::post('params', 'MemberController@updateParams')->name('member.update');
 
-            Route::get('psw', 'MemberController@psw')->name('member.psw');
-            Route::post('psw', 'MemberController@updatePsw')->name('member.psw');
+                Route::get('psw', 'MemberController@psw')->name('member.psw');
+                Route::post('psw', 'MemberController@updatePsw')->name('member.psw');
 
-            Route::get('{member}/member/range','MemberController@range')->name('member.range');
-            Route::put('{member}/member/range', 'MemberController@updateRange')->name('member.range.update');
+                Route::get('{member}/member/range','MemberController@range')->name('member.range');
+                Route::put('{member}/member/range', 'MemberController@updateRange')->name('member.range.update');
 
-            Route::get('{member}/member/status', 'MemberController@status')->name('member.status');
-            Route::put('{member}/member/status', 'MemberController@updateStatus')->name('member.status.update');
+                Route::get('{member}/member/status', 'MemberController@status')->name('member.status');
+                Route::put('{member}/member/status', 'MemberController@updateStatus')->name('member.status.update');
 
-            Route::resource('position', 'PositionController');
+                Route::resource('position', 'PositionController');
+            });
+
+            Route::resource('token','Premium\TokenController')->except(['edit', 'update', 'show']);
+
         });
 
-        Route::resource('token','Premium\TokenController')->except(['edit', 'update', 'show']);
+    });
+
+
+    Route::middleware(['admin'])->namespace('Admin')->group(function (){
+
+
+        Route::get('admin/params','AdminController@params')->name('admin.params');
+
+        Route::put('admin/params','AdminController@updateParams')->name('admin.params.update');
+
+        Route::resource('admin','AdminController')->except(['edit', 'update']);
 
     });
 
