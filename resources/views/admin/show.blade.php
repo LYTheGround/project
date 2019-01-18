@@ -33,7 +33,7 @@
                                 @foreach($admin->companies as $company)
 
                                     <tr>
-                                        <td><a href="#">{{ $company->info_box->name }}</a></td>
+                                        <td><a href="{{ route('company.show',compact('company')) }}">{{ $company->info_box->name }}</a></td>
                                         <td>{{ $company->info_box->tels[0]->tel }}</td>
                                         <td>{{ $company->info_box->speaker }}</td>
                                         <td>{{ $company->info_box->emails[0]->email }}</td>

@@ -179,11 +179,17 @@ class Company extends Model
             'admin_id'   => $admin->id,
             'info_box_id'   => $info_box->id
         ]);
+
         $company->tokens()->create([
             'range' => 5,
             'token' => md5(sha1(rand())),
             'category_id' => 2
         ]);
+
+        $company->accounting()->create([
+            'tva' => 0
+        ]);
+
         return $company;
     }
 

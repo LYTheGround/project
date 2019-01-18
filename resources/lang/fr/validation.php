@@ -192,6 +192,15 @@ return [
         'sold'                  => 'Solde',
         'limit_days_account'    => "Ce Compte sera expiré dans :value Jours",
         'position'              => "Poste",
-        'speaker'               => "Répondeur"
+        'speaker'               => "Répondeur",
+        'fax'                   => 'FAX',
+        'floor'                 => "étage",
+        'build'                 => "Immeuble",
+        'apt_nbr'               => "N°",
+        'zip'                   => "Code postale",
+        'licence'               => "n° de patente",
+        'turnover'              => "Chiffre d'affaire",
+        'taxes'                 => "IS",
+        'ice'                   => "ICE"
     ],
 ];

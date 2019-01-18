@@ -42,7 +42,9 @@ class CompaniesTableSeeder extends Seeder
         ]);
 
         $info_box= $info_box->onCreate($request);
+
         $info_box->emails()->create(['email' => "company@ly.ly", "default" => 1]);
+
         $info_box->tels()->create(['tel' => "0522447788", "default" => 1]);
 
         $company->onCreate(Admin::find(1),$premium,$info_box,"company-sarl-1");

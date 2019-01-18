@@ -56,10 +56,17 @@ Route::middleware('auth')->group(function (){
 
 
         Route::get('admin/params','AdminController@params')->name('admin.params');
-
         Route::put('admin/params','AdminController@updateParams')->name('admin.params.update');
 
         Route::resource('admin','AdminController')->except(['edit', 'update']);
+
+        Route::resource('company', 'CompanyController');
+
+        Route::get('company/{company}/sold', 'CompanyController@sold')->name('company.sold');
+        Route::put('company/{company}/sold', 'CompanyController@updateSold')->name('company.updateSold');
+
+        Route::get('company/{company}/status', 'CompanyController@status')->name('company.status');
+        Route::put('company/{company}/status', 'CompanyController@updateStatus')->name('company.updateStatus');
 
     });
 
